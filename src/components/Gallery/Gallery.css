@@ -13,6 +13,7 @@
 
 .image:hover {
   background-color: gray !important;
+  filter: grayscale(100%);
   cursor: pointer;
 }
 
@@ -24,6 +25,11 @@
 .image-container {
   position: relative;
 }
+.image-container:hover .blank-box {
+  display: block; /* Show the blank box when hovering over the image container */
+  /* Add any other styles you want when hovering here */
+}
+
 .blank-box {
   width: 30px;
   height: 30px;
@@ -32,6 +38,27 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  display: none;
+}
+
+.blank-box-check-mark {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(68, 68, 204);
+  border: 1px solid #000;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.text {
+  display: flex;
+  justify-content: space-between;
+}
+.delete-button {
+  background-color: #fff;
+  border: 0;
+  color: red;
 }
 
 /* Responsive for tablet */
