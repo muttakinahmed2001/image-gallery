@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./Gallery.css";
 
 const Gallery = () => {
-  const [clickedImages, setClickedImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState([]);
+
   const images = [
     "/images/image-11.jpeg",
     "/images/image-1_clipdrop-background-removal.webp",
@@ -16,44 +17,65 @@ const Gallery = () => {
     "/images/image-9.webp",
     "/images/image-10.jpeg",
   ];
-
   const [remainingImages, setRemainingImages] = useState(images);
 
+  //  image selection functionality
+
   const handleImageClicked = (index) => {
-    if (clickedImages.includes(index)) {
-      setClickedImages(clickedImages.filter((i) => i !== index));
+    if (selectedImages.includes(index)) {
+      setSelectedImages(selectedImages.filter((i) => i !== index));
     } else {
-      setClickedImages([...clickedImages, index]);
+      setSelectedImages([...selectedImages, index]);
     }
   };
 
   // Delete Functionalities
 
   const handleDeleteImage = () => {
-    const clickedImageUrl = clickedImages.map((index) => images[index]);
+    const selectedImageUrl = selectedImages.map((index) => images[index]);
 
     setRemainingImages((prevRemainingImages) =>
       prevRemainingImages.filter(
-        (image, index) => !clickedImageUrl.includes(images[index])
+        (image, index) => !selectedImageUrl.includes(images[index])
       )
     );
 
-    setClickedImages([]);
+    setSelectedImages([]);
+  };
+
+  // upload image functionality
+
+  const inputRef = useRef(null);
+
+  const handleAddImage = () => {
+    inputRef.current.click();
+  };
+
+  const handleUploadImage = (event) => {
+    const uploadedFiles = event.target.files;
+
+    if (uploadedFiles.length > 0) {
+      const newImages = Array.from(uploadedFiles).map((file) => {
+        const objectUrl = URL.createObjectURL(file);
+        return objectUrl;
+      });
+      setRemainingImages([...remainingImages, ...newImages]);
+    }
   };
 
   return (
     <>
-      {clickedImages.length === 0 ? (
+      {selectedImages.length === 0 ? (
         <h1>Gallery</h1>
       ) : (
         <div className="text">
           <h1>
-            {clickedImages.length}{" "}
-            {clickedImages.length === 1 ? "File" : "Files"} Selected
+            {selectedImages.length}{" "}
+            {selectedImages.length === 1 ? "File" : "Files"} Selected
           </h1>
           <button onClick={() => handleDeleteImage()} className="delete-button">
             <h2>
-              {clickedImages.length === 1 ? "Delete file" : "Delete files"}
+              {selectedImages.length === 1 ? "Delete file" : "Delete files"}
             </h2>
           </button>
         </div>
@@ -65,12 +87,18 @@ const Gallery = () => {
         {remainingImages.map((image, index) => (
           <div
             className={`image-container ${index === 0 ? "first-image" : ""}`}
+            style={{
+              backgroundColor: selectedImages.includes(index)
+                ? "#eaeaea"
+                : "#ffffff",
+              filter: selectedImages.includes(index) ? "grayscale(0%)" : "none",
+            }}
             key={index}>
             <div>
               <img className="image" src={image} alt="" />
             </div>
             <div>
-              {clickedImages.includes(index) ? (
+              {selectedImages.includes(index) ? (
                 <div onClick={() => handleImageClicked(index)}>
                   <h2 className="blank-box-check-mark">&#10003;</h2>{" "}
                   {/* Checkmark (✓) */}
@@ -83,6 +111,18 @@ const Gallery = () => {
             </div>
           </div>
         ))}
+        {/* default image */}
+
+        <div onClick={handleAddImage} className="default-img-container">
+          <img className="default-img" src="/images/default-image.png" alt="" />
+          <h2>Add Images</h2>
+          <input
+            style={{ display: "none" }}
+            type="file"
+            ref={inputRef}
+            onChange={handleUploadImage}
+          />
+        </div>
       </div>
     </>
   );
