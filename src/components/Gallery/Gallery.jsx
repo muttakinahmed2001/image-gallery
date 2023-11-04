@@ -101,7 +101,7 @@ const Gallery = () => {
               {selectedImages.includes(index) ? (
                 <div onClick={() => handleImageClicked(index)}>
                   <h2 className="blank-box-check-mark">&#10003;</h2>{" "}
-                  {/* Checkmark (✓) */}
+                  {/* Checkmark  */}
                 </div>
               ) : (
                 <div
@@ -115,6 +115,7 @@ const Gallery = () => {
 
         <div onClick={handleAddImage} className="default-img-container">
           <img className="default-img" src="/images/default-image.png" alt="" />
+
           <h2>Add Images</h2>
           <input
             style={{ display: "none" }}
