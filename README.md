@@ -11,3 +11,7 @@ Welcome to the Image Gallery Project, a robust web application designed to offer
 ## Live Link
 
 https://image-gallery-five-xi.vercel.app/
+
+## Tech Stack
+
+React.js, Next.js, javascript
