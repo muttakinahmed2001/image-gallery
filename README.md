@@ -1,8 +1,13 @@
-# React + Vite
+# Image-Gallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Image Gallery Project, a robust web application designed to offer a seamless experience for managing your image collection. This project focuses on three key functionalities: image upload, selection, and deletion, providing users with a comprehensive tools for efficient image management.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Add your favorite photos to the gallery effortlessly using a simple and user-friendly upload feature.
+- Navigate through your pictures easily by selecting and viewing specific ones with a simple click.
+- Keep your gallery tidy by easily deleting pictures you don't need, making it a breeze to manage your collection.
+
+## Live Link
+
+https://image-gallery-five-xi.vercel.app/
